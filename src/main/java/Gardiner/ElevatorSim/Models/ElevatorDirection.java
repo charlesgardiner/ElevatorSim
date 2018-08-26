@@ -7,7 +7,6 @@ public enum ElevatorDirection {
 	final String name;
 	
 	 ElevatorDirection(String name) {
-		// TODO Auto-generated constructor stub
 		this.name = name;
 	}
 }

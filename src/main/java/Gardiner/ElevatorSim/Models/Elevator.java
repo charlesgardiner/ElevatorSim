@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Elevator {
 
 	private UUID id;
-	//private Stream<PickUpRequest> pickUpRequests = Stream.of();
 	private ArrayList<PickUpRequest> pickUpRequests = new ArrayList<>();
-	private ArrayList<Long> destinationFloors = new ArrayList<>();
 	private int currentFloor;
 	private ElevatorDirection direction;
+	private int maxFloor;
 	
 	private static final Comparator<PickUpRequest> COMPARE_PICKUPREQUEST = (pur1, pur2) -> Integer.compare(pur1.getToFloor(), pur2.getToFloor());
 
@@ -29,17 +27,13 @@ public class Elevator {
 	public UUID getId() {
 		return id;
 	}
-
-	public List<Long> getDestinationFloors() {
-		return destinationFloors;
+	
+	public void setMaxFloor(int floor) {
+		this.maxFloor = floor;
 	}
 
 	public List<PickUpRequest> getPickUpRequests() {
 		return pickUpRequests;
-	}
-	
-	public void setDestinationFloors(ArrayList<Long> destinationFloors) {
-		this.destinationFloors = destinationFloors;
 	}
 
 	public void addPickUpRequest(PickUpRequest pickUpRequest) {
@@ -55,13 +49,8 @@ public class Elevator {
 		this.pickUpRequests = (ArrayList<PickUpRequest>) Stream.concat(honestPUR, liarPUR).collect(Collectors.toList());
 	}
 	
-	public int getCurrentFloor() {
-		return currentFloor;
-	}
 
-
-	// refator?
-	public void step(int maxFloor) {
+	public void step() {
 		
 		if (direction == ElevatorDirection.UP && currentFloor < maxFloor) {
 			currentFloor++;
@@ -82,12 +71,19 @@ public class Elevator {
 		return direction;
 	}
 
+	public int getCurrentFloor() {
+		return currentFloor;
+	}
 	
 	public String toString() {
-		return String.format("Elevator {0}: on floor {1} heading to {2}",
-				id.toString(),
-				currentFloor,
-				destinationFloors.isEmpty() ? "no where" : destinationFloors.get(0));
+		String elevator = "Elevator " + id.toString() + " is on floor " + currentFloor + "\n";
+		if (pickUpRequests.size() == 0) {
+			elevator += "  It has no pick up requests\n";
+			return elevator;
+		}
+		StringBuilder purs = new StringBuilder();
+		pickUpRequests.stream().forEach(pur -> purs.append(pur.toString()));
+		return elevator + "\n It has Pick Up Requests " + purs.toString();
 	}
 	
 }
