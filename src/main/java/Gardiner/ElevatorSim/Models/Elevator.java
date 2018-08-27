@@ -77,13 +77,14 @@ public class Elevator {
 	
 	public String toString() {
 		String elevator = "Elevator " + id.toString() + " is on floor " + currentFloor + "\n";
+		elevator += "  It is headed " + direction + "\n";
 		if (pickUpRequests.size() == 0) {
 			elevator += "  It has no pick up requests\n";
 			return elevator;
 		}
 		StringBuilder purs = new StringBuilder();
-		pickUpRequests.stream().forEach(pur -> purs.append(pur.toString()));
-		return elevator + "\n It has Pick Up Requests " + purs.toString();
+		pickUpRequests.stream().forEach(pur -> purs.append("  " + pur.toString()));
+		return elevator + "It has Pick Up Requests \n" + purs.toString();
 	}
 	
 }

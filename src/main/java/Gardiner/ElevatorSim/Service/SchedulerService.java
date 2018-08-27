@@ -24,7 +24,6 @@ public class SchedulerService {
 	private static int GLOBAL_CLOCK = 0;
 	private static int MAX_FLOOR_LEVEL = 1;
 	private static int BATCH_DISTANCE = 1; // distance maintained between elevators
-	private static int BATCH_DISTANCE_CLOCK = 0; // clock for how long this batch distance existed
 
 	private static final Comparator<Elevator> COMPARE_ELEVATOR = (elevator1, elevator2) -> Integer
 			.compare(elevator1.getCurrentFloor(), elevator2.getCurrentFloor());
@@ -43,8 +42,8 @@ public class SchedulerService {
 		strBuilder.append("At Step: " + GLOBAL_CLOCK + "\n\n");
 		strBuilder.append("Elevator Count: " + elevators.size() + "\n\n");
 		elevators.stream().forEach(e -> strBuilder.append(e.toString()));
-		strBuilder.append("\n\n");
-		strBuilder.append("Pick Up Request Count: " + pickUpRequestQueue.size());
+		strBuilder.append("\n\nAll pick up requests ever received:");
+		strBuilder.append("Pick Up Request Count: " + pickUpRequestQueue.size() + "\n");
 		pickUpRequestQueue.stream().forEach(pur -> strBuilder.append(pur.toString()));
 
 		return strBuilder.toString();
@@ -86,7 +85,6 @@ public class SchedulerService {
 	public void proccesStepRequest() {
 
 		GLOBAL_CLOCK++;
-		BATCH_DISTANCE_CLOCK++;
 
 		// process any requests that happened running the step
 		for (PickUpRequest pickUpRequest : pickUpRequestQueue) {
@@ -148,6 +146,12 @@ public class SchedulerService {
 			}
 		}
 
+		// this exists to tell the user an elevator picked up the request
+		elevators.stream().forEach(e -> {
+			e.getPickUpRequests().stream()
+				.filter(p -> p.getFromFloor() == e.getCurrentFloor())
+				.forEach(p -> System.out.println("Elevator " + e.getId() + " picked up " + p.getId()));
+		});
 		
 		/*
 		 * This next section is the main part of my scheduler.
@@ -195,11 +199,12 @@ public class SchedulerService {
 			}
 		}
 
+		
 		// remove any satisfied elevators
 		elevators.stream().forEach(e -> {
 			if (!e.getPickUpRequests().isEmpty()
 					&& (e.getPickUpRequests().get(0).getToFloor() == e.getCurrentFloor())) {
-				System.out.println("Pick up request: " + e.getPickUpRequests().get(0).getId() + "completed");
+				System.out.println("Pick up request: " + e.getPickUpRequests().get(0).getId() + " dropped off");
 				e.getPickUpRequests().remove(0);
 			}
 		});

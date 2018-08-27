@@ -1,0 +1,256 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.0.RELEASE)
+
+2018-08-26 22:51:03.442  INFO 2985 --- [           main] Gardiner.ElevatorSim.App                 : Starting App on Charless-MacBook-Pro.local with PID 2985 (/Users/charlesgardiner/eclipse-workspace/ElevatorSim/target/classes started by charlesgardiner in /Users/charlesgardiner/eclipse-workspace/ElevatorSim)
+2018-08-26 22:51:03.446  INFO 2985 --- [           main] Gardiner.ElevatorSim.App                 : No active profile set, falling back to default profiles: default
+2018-08-26 22:51:03.512  INFO 2985 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@4d339552: startup date [Sun Aug 26 22:51:03 PDT 2018]; root of context hierarchy
+2018-08-26 22:51:04.483  WARN 2985 --- [           main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2018-08-26 22:51:04.624  INFO 2985 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-08-26 22:51:04.637  INFO 2985 --- [           main] Gardiner.ElevatorSim.App                 : Started App in 1.473 seconds (JVM running for 1.853)
+shell:>elevators 3
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 1
+  It is headed UP
+  It has no pick up requests
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 1
+  It is headed UP
+  It has no pick up requests
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 1
+  It is headed UP
+  It has no pick up requests
+
+shell:>pick-up 1 UP 12
+Pick up request 84e6eaaf-daab-4e99-809d-f0fb723b7a57 created
+shell:>get-system-status
+System Status
+At Step: 0
+
+Elevator Count: 3
+
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 1
+  It is headed UP
+  It has no pick up requests
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 1
+  It is headed UP
+  It has no pick up requests
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 1
+  It is headed UP
+  It has no pick up requests
+
+
+All pick up requests ever received:Pick Up Request Count: 1
+Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+
+shell:>step 5
+Processing Step . . .
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 picked up 84e6eaaf-daab-4e99-809d-f0fb723b7a57
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+All done.
+shell:>get-system-status
+System Status
+At Step: 5
+
+Elevator Count: 3
+
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 6
+  It is headed UP
+It has Pick Up Requests 
+  Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 2
+  It is headed UP
+  It has no pick up requests
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 1
+  It is headed UP
+  It has no pick up requests
+
+
+All pick up requests ever received:Pick Up Request Count: 1
+Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+
+shell:>pick-up 10 DOWN 9
+Pick up request e3d7ff61-0a6b-4ef9-82aa-30211c230214 created
+shell:>pick-up 5 UP 11
+Pick up request f753b263-e79c-4d4d-8d8c-46ea256ba724 created
+shell:>step 3
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+All done.
+shell:>get-system-status
+System Status
+At Step: 8
+
+Elevator Count: 3
+
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 9
+  It is headed UP
+It has Pick Up Requests 
+  Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 5
+  It is headed UP
+It has Pick Up Requests 
+  Pick Up Request: f753b263-e79c-4d4d-8d8c-46ea256ba724: from floor 5 UP to 11
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 1
+  It is headed UP
+  It has no pick up requests
+
+
+All pick up requests ever received:Pick Up Request Count: 3
+Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+Pick Up Request: e3d7ff61-0a6b-4ef9-82aa-30211c230214: from floor 10 DOWN to 9
+Pick Up Request: f753b263-e79c-4d4d-8d8c-46ea256ba724: from floor 5 UP to 11
+
+shell:>step 3
+Processing Step . . .
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 picked up f753b263-e79c-4d4d-8d8c-46ea256ba724
+Processing Step . . .
+Processing Step . . .
+Pick up request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57 dropped off
+All done.
+shell:>step 
+Processing Step . . .
+All done.
+shell:>step
+Processing Step . . .
+All done.
+shell:>step
+Processing Step . . .
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 picked up e3d7ff61-0a6b-4ef9-82aa-30211c230214
+Pick up request: e3d7ff61-0a6b-4ef9-82aa-30211c230214 dropped off
+Pick up request: f753b263-e79c-4d4d-8d8c-46ea256ba724 dropped off
+All done.
+shell:>get-system-status
+System Status
+At Step: 14
+
+Elevator Count: 3
+
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 9
+  It is headed DOWN
+  It has no pick up requests
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 11
+  It is headed UP
+  It has no pick up requests
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 7
+  It is headed UP
+  It has no pick up requests
+
+
+All pick up requests ever received:Pick Up Request Count: 3
+Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+Pick Up Request: e3d7ff61-0a6b-4ef9-82aa-30211c230214: from floor 10 DOWN to 9
+Pick Up Request: f753b263-e79c-4d4d-8d8c-46ea256ba724: from floor 5 UP to 11
+
+shell:>pick-up 12 DOWN 3
+Pick up request 2b628a40-c9fd-4d1b-abe4-fc50874384ed created
+shell:>pick-up 3 to 16
+[31mThe following constraints were not met:[0m
+	--direction string : must match "(DOWN|UP|down|up)" (You passed 'to')
+shell:>pick-up 3 UP 16
+Pick up request e125cc1b-0242-4f30-8f41-c242ca10a07a created
+shell:>get-system-status
+System Status
+At Step: 14
+
+Elevator Count: 3
+
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 9
+  It is headed DOWN
+  It has no pick up requests
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 11
+  It is headed UP
+  It has no pick up requests
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 7
+  It is headed UP
+  It has no pick up requests
+
+
+All pick up requests ever received:Pick Up Request Count: 5
+Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+Pick Up Request: e3d7ff61-0a6b-4ef9-82aa-30211c230214: from floor 10 DOWN to 9
+Pick Up Request: f753b263-e79c-4d4d-8d8c-46ea256ba724: from floor 5 UP to 11
+Pick Up Request: 2b628a40-c9fd-4d1b-abe4-fc50874384ed: from floor 12 DOWN to 3
+Pick Up Request: e125cc1b-0242-4f30-8f41-c242ca10a07a: from floor 3 UP to 16
+
+shell:>step 9
+Processing Step . . .
+Processing Step . . .
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 picked up 2b628a40-c9fd-4d1b-abe4-fc50874384ed
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+All done.
+shell:>get-system-status
+System Status
+At Step: 23
+
+Elevator Count: 3
+
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 2
+  It is headed UP
+It has Pick Up Requests 
+  Pick Up Request: e125cc1b-0242-4f30-8f41-c242ca10a07a: from floor 3 UP to 16
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 4
+  It is headed DOWN
+It has Pick Up Requests 
+  Pick Up Request: 2b628a40-c9fd-4d1b-abe4-fc50874384ed: from floor 12 DOWN to 3
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 8
+  It is headed DOWN
+  It has no pick up requests
+
+
+All pick up requests ever received:Pick Up Request Count: 5
+Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+Pick Up Request: e3d7ff61-0a6b-4ef9-82aa-30211c230214: from floor 10 DOWN to 9
+Pick Up Request: f753b263-e79c-4d4d-8d8c-46ea256ba724: from floor 5 UP to 11
+Pick Up Request: 2b628a40-c9fd-4d1b-abe4-fc50874384ed: from floor 12 DOWN to 3
+Pick Up Request: e125cc1b-0242-4f30-8f41-c242ca10a07a: from floor 3 UP to 16
+
+shell:> step 6
+Processing Step . . .
+Pick up request: 2b628a40-c9fd-4d1b-abe4-fc50874384ed dropped off
+Processing Step . . .
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 picked up e125cc1b-0242-4f30-8f41-c242ca10a07a
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+Processing Step . . .
+All done.
+shell:>get-system-status
+System Status
+At Step: 29
+
+Elevator Count: 3
+
+Elevator 642e4fbb-84a6-49a9-bcff-cba15348f314 is on floor 8
+  It is headed UP
+It has Pick Up Requests 
+  Pick Up Request: e125cc1b-0242-4f30-8f41-c242ca10a07a: from floor 3 UP to 16
+Elevator 7f9eb44b-659a-428b-a950-11cc74230741 is on floor 3
+  It is headed UP
+  It has no pick up requests
+Elevator d0eeaff0-6e9e-49a6-bf2e-128149e36897 is on floor 2
+  It is headed DOWN
+  It has no pick up requests
+
+
+All pick up requests ever received:Pick Up Request Count: 5
+Pick Up Request: 84e6eaaf-daab-4e99-809d-f0fb723b7a57: from floor 1 UP to 12
+Pick Up Request: e3d7ff61-0a6b-4ef9-82aa-30211c230214: from floor 10 DOWN to 9
+Pick Up Request: f753b263-e79c-4d4d-8d8c-46ea256ba724: from floor 5 UP to 11
+Pick Up Request: 2b628a40-c9fd-4d1b-abe4-fc50874384ed: from floor 12 DOWN to 3
+Pick Up Request: e125cc1b-0242-4f30-8f41-c242ca10a07a: from floor 3 UP to 16
+
+shell:>

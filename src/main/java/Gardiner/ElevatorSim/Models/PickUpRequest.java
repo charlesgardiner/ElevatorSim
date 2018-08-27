@@ -55,7 +55,7 @@ public class PickUpRequest {
 	}
 
 	public String toString() {
-		String status = "Pick Up Request: " + id + "\n" + "from floor " + fromFloor + " " + direction + " to " + toFloor
+		String status = "Pick Up Request: " + id + ": " + "from floor " + fromFloor + " " + direction + " to " + toFloor
 				+ "\n";
 		return status;
 	}
