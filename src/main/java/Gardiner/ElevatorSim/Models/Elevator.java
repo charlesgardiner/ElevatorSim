@@ -21,7 +21,8 @@ public class Elevator {
 	public Elevator() {
 		id = UUID.randomUUID();
 		currentFloor = 1;
-		direction = ElevatorDirection.UP;		
+		direction = ElevatorDirection.UP;	
+		maxFloor = 1;
 	}
 	
 	public UUID getId() {

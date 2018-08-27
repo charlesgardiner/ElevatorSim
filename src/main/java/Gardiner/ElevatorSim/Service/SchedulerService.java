@@ -14,6 +14,11 @@ import Gardiner.ElevatorSim.Models.Elevator;
 import Gardiner.ElevatorSim.Models.ElevatorDirection;
 import Gardiner.ElevatorSim.Models.PickUpRequest;
 
+/**
+ * The Scheduler for the system.
+ * @author charlesgardiner
+ *
+ */
 @Service
 public class SchedulerService {
 
@@ -36,6 +41,10 @@ public class SchedulerService {
 		return elevators.size();
 	}
 
+	/**
+	 * Gets the status of the system
+	 * @return System status
+	 */
 	public String getSystemStatus() {
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append("System Status\n");
@@ -49,6 +58,11 @@ public class SchedulerService {
 		return strBuilder.toString();
 	}
 
+	/**
+	 * Gets status of an elevator
+	 * @param uid id of elevator
+	 * @return status
+	 */
 	public String getElevatorStatus(UUID uid) {
 		Optional<Elevator> elevator = elevators.stream().filter(e -> e.getId().equals(uid)).findFirst();
 		if (elevator.isPresent()) {
@@ -57,6 +71,11 @@ public class SchedulerService {
 		return "no elevator of id: " + uid + "\n";
 	}
 
+	/**
+	 * Creates Elevators
+	 * @param quantity the number of elevators to create
+	 * @return list of elevators
+	 */
 	public List<Elevator> createElevators(int quantity) {
 
 		// only create elevators once
@@ -82,6 +101,9 @@ public class SchedulerService {
 		pickUpRequestQueue.add(pickupRequest);
 	}
 
+	/***
+	 * The main logic of scheduler
+	 */
 	public void proccesStepRequest() {
 
 		GLOBAL_CLOCK++;
@@ -200,7 +222,7 @@ public class SchedulerService {
 		}
 
 		
-		// remove any satisfied elevators
+		// remove any satisfied pick up requests
 		elevators.stream().forEach(e -> {
 			if (!e.getPickUpRequests().isEmpty()
 					&& (e.getPickUpRequests().get(0).getToFloor() == e.getCurrentFloor())) {
