@@ -88,14 +88,16 @@ unfairly punish requests that are far from the busy area.
 
 Elevators in this approach can handle multiple requests, pick up more than one request at a time.  The Elevators will constantly move, even when empty. They will space themselves out to maximize coverage of the building.
 
-The algorithm works by "peeking" at pick up requests to determine the maximum height of the build.  When the first request is entered, the maximum height of the build is determined and a "batching distance" is calculated.  Then the first elevator starts moving upwards toward the top the of the building.  The second elevator starts moving after the first elevator is a "batching distance" of floors away from the second elevator.  Then the second elevator starts moving.  The 3rd elevator starts moving when the 2nd elevator is a "batching distance" of floors away from the 3rd elevator.  This pattern continues for all elevatotrs.
+The algorithm works by "peeking" at pick up requests to determine the maximum height of the build.  When the first request is entered, the maximum height of the build is determined and a "batching distance" is calculated.  Then the first elevator starts moving upwards toward the top of the building.  The second elevator starts moving after the first elevator is a "batching distance" of floors away from the second elevator, which is wating on the 1st floor.  The 3rd elevator starts moving when the 2nd elevator is a "batching distance" of floors away from the 3rd elevator, which is waiting on the 1st floor.  This pattern continues for all elevatotrs.
 
-The "batching distance" is calculated by taken maximum number of floors and dividing it by the number of elevators.  This will ensure that all elevators are evenly spaced throughout the building at all times. There is a special case for when the batching distance is one.
+The "batching distance" is calculated by taking the maximum number of floors and dividing it by the number of elevators.  This will ensure that all elevators are evenly spaced throughout the building at all times. There is a special case for when the batching distance is one.  In this case, there are a nearly equal number of floors to elevators.  For a batching distance of one, elevators wait for the elevator in front of them to be one floor, but multiple elevators can be on the same floor.
 
+When a new max floor level is found, it is assigned to elevators as they reach the first floor.  This is so elevators only adjust for a new "batching distance" on floor one.  Adjustment cause the elevator to not move from floor one until the previos elevator has moved beyond the batching distance.
 
+When a new pick up request has entered the system, the scheduler determines which elevator will be the next one on the way.  To determine on the way, the elevator must be moving in the same direction as the pick up request and be the next elevator to visit the floor the pick up request is made from.  This ensures that as requests are made the quickest possible pick up time is reached without breaking the "batching distance"
 
 #### Possible oversights
 
-- My elevators do not have a capacity limit.  This is clearly not realistic.
+- My elevators do not have a capacity limit.  This is clearly not realistic.  It could be added to the the "on my way" part 
+of the algorithm with check to see if the elevator can handle any more people.  The pick up request would also need to include capcity information in its request.
 - It is not practical to have elevators to always be moving in the real world as moving an elvator has a cost.
-- 
