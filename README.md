@@ -53,6 +53,10 @@ List of Commands
 - get-elevator-status [uuid]
 
     returns the status of the elevator for the given uuid
+
+- exit 
+
+    to exit the program
     
 ###  Algorithm Discussion
 
@@ -96,8 +100,21 @@ When a new max floor level is found, it is assigned to elevators as they reach t
 
 When a new pick up request has entered the system, the scheduler determines which elevator will be the next one on the way.  To determine on the way, the elevator must be moving in the same direction as the pick up request and be the next elevator to visit the floor the pick up request is made from.  This ensures that as requests are made the quickest possible pick up time is reached without breaking the "batching distance"
 
+With this algorithm the average wait time tends towards the number of floors divided by the number of elevators over time.  However there are specific groups who will suffer much longer than average weight times.  An early down request from a low floor will have a wait time of 2 times the number of floors.  Any request that sets a new max floor level and is for going down will have a longer wait time as well.
+
 #### Possible oversights
 
 - My elevators do not have a capacity limit.  This is clearly not realistic.  It could be added to the the "on my way" part 
 of the algorithm with check to see if the elevator can handle any more people.  The pick up request would also need to include capcity information in its request.
 - It is not practical to have elevators to always be moving in the real world as moving an elvator has a cost.
+
+#### Possible code improvements
+
+- Better documentation inside the code could help
+- Putting state inside a PickUpRequest
+- I ran out of time and could add a LOT more unit tests.
+
+#### Final Notes
+included a example.txt of me running through a sample run time
+include an executable jar and bash file to run it.
+
